@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+    playground:
+        image: rust-lambda-example.playground
+        container_name: rust-lambda-example.playground
+        build:
+            context: ./
+            target: playground
+        ports:
+            - "127.0.0.1:${APP_PORT}:8000"
+        volumes:
+            - type: bind
+              source: ./
+              target: /app
+        stdin_open: true
+        tty: true

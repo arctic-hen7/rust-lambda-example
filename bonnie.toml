@@ -1,0 +1,19 @@
+[scripts]
+# Gets the ID of a running Docker container by its name (utility script)
+getcontainerid.cmd = "docker ps | awk -v containername=\"%containername\" '$0 ~ containername{print $1}'"
+getcontainerid.args = [
+    "containername"
+]
+# Use this script to run any `docker-compose` commands, it automatically interpolates environment variables
+dc = "docker-compose --env-file .ports.env %%"
+# Rebuilds all containers, use this when you change any Docker configurations or update Rust dependencies
+rebuild = "bonnie dc up --build -d"
+# Starts all containers without creating a shell
+up = "bonnie dc up -d"
+# Brings down all Docker containers
+end = "bonnie dc down"
+
+start = "bonnie dc up -d playground"
+stop = "bonnie dc stop playground"
+attach = "bonnie start && docker attach $(bonnie getcontainerid rust-lambda-example.playground)"
+sh = "bonnie dc run --entrypoint \"/bin/zsh\" -p 9001:7000 --use-aliases --rm playground"
