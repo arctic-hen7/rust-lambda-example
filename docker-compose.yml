@@ -6,11 +6,10 @@ services:
         build:
             context: ./
             target: playground
-        ports:
-            - "127.0.0.1:${APP_PORT}:8000"
         volumes:
             - type: bind
               source: ./
               target: /app
         stdin_open: true
         tty: true
+        network_mode: host # I can't be bothered to set up port forwarding for Netlify's elaborate setup, so forward everything!

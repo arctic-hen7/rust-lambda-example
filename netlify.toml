@@ -1,6 +1,12 @@
-# THIS DOES NOT YET WORK AT ALL!
+[build]
+command = "sh ./build.sh"
+functions = "functions" # netlify dev uses this directory to scaffold and serve your functions
+publish = "public"
+
 [dev]
 framework = "#custom"
-command = "cargo run"
-port = 8888 # The port that the netlify dev will be accessible on
-targetPort = 3000
+command = "serve public" # Just serves the static content, all we want is the functions
+targetPort = 3000 # The port for the app
+port = 8888 # The port that Netlify Dev itself will be accessible on
+publish = "public" # Meaningless static content that seems to have to exist
+autoLaunch = false # We're in Docker, there's no point in trying to open in a browser automatically
